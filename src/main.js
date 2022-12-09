@@ -77,16 +77,22 @@ function activateFormViewButton() {
   saveCoverButton.classList.add('hidden')
   // savedCoverPageElements.classList.add('hidden')
 }
+var formCover = document.querySelector('#cover')
+var formTitle = document.querySelector('#title')
+var formDescriptor1 = document.querySelector('#descriptor1')
+var formDescriptor2 = document.querySelector('#descriptor2')
+var test = ''
 
-function activateMakeMyBookButton() {
-  var formCover = document.querySelector('#cover')
-  var formTitle = document.querySelector('#title')
-  var formDescriptor1 = document.querySelector('#descriptor1')
-  var formDescriptor2 = document.querySelector('#descriptor2')
-  covers.unshift(formCover)
-  titles.unshift(formTitle)
-  descriptors.unshift(formDescriptor1)
-  descriptors.unshift(formDescriptor2)
+// Play around with order cannot press button now
+// Do a reaactivate button to undo default??
+function activateMakeMyBookButton(form) {
+  form.preventDefault()
+  test = formTitle.value
+  covers.unshift(formCover.value)
+  titles.unshift(formTitle.value)
+  descriptors.unshift(formDescriptor2.value)
+  descriptors.unshift(formDescriptor1.value)
+
   // event.preventDefault()
 }
 
