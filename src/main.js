@@ -81,20 +81,34 @@ var formCover = document.querySelector('#cover')
 var formTitle = document.querySelector('#title')
 var formDescriptor1 = document.querySelector('#descriptor1')
 var formDescriptor2 = document.querySelector('#descriptor2')
-var test = ''
 
 // Play around with order cannot press button now
 // Do a reaactivate button to undo default??
 function activateMakeMyBookButton(form) {
   form.preventDefault()
-  test = formTitle.value
   covers.unshift(formCover.value)
   titles.unshift(formTitle.value)
   descriptors.unshift(formDescriptor2.value)
   descriptors.unshift(formDescriptor1.value)
-
+  userCover = new Cover(covers[0], titles[0], descriptors[0], descriptors[1])
+  homeImage.src = userCover.cover
+  homeTitle.innerText = userCover.title
+  homeTagline1.innerText = userCover.tagline1
+  homeTagline2.innerText = userCover.tagline2
+  userForm.classList.add('hidden')
+  saveCoverButton.classList.remove('hidden')
+  homeMainCover.classList.remove('hidden')
+  
+  // createUserBook()
   // event.preventDefault()
 }
+
+// function createUserBook() {
+  // use form variables stored in the arrays to update HTML elements
+  // remove hidden class on book elements
+  // add hidden class on form elements
+  
+// }
 
 function activateViewSavedButton() {
   homeButton.classList.remove('hidden')
