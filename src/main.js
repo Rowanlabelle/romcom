@@ -13,8 +13,8 @@ var saveCoverButton = document.querySelector('.save-cover-button')
 var viewSavedButton = document.querySelector('.view-saved-button')
 
 // User form buttons 1.to get there 2.submit
-var makeCoverButton = document.querySelector('.make-new-button')
-var newBookButton = document.querySelector('.create-new-book-button')
+var formViewButton = document.querySelector('.make-new-button')
+var makeMyBookButton = document.querySelector('.create-new-book-button')
 
 
 var savedView = document.querySelector('.saved-view')
@@ -40,7 +40,10 @@ randomButton.addEventListener("click", generateNewCover)
 
 // --------------- Make new cover Button------------------------- 
 // for make your own
-makeCoverButton.addEventListener("click", activateCoverButton)
+formViewButton.addEventListener("click", activateFormViewButton)
+makeMyBookButton.addEventListener("click", activateMakeMyBookButton)
+
+
 homeButton.addEventListener("click", activateHomeButton)
 
 
@@ -58,21 +61,42 @@ function generateNewCover() {
 }
 
 function activateHomeButton() {
-  showElements(homePageElements)
-  hideElements(makeUserFormElements)
-  hideElements(savedCoverPageElements)
+  homeMainCover.classList.remove('hidden')
+  saveCoverButton.classList.remove('hidden')
+  randomButton.classList.remove('hidden')
+  userForm.classList.add('hidden')
+  homeButton.classList.add('hidden')
+  // savedCoverPageElements.classList.add('hidden')
 }
 
-function activateCoverButton() {
-  hideElements(homePageElements)
-  showElements(makeUserFormElements)
-  hideElements(savedCoverPageElements)
+function activateFormViewButton() {
+  homeButton.classList.remove('hidden')
+  userForm.classList.remove('hidden')
+  homeMainCover.classList.add('hidden')
+  randomButton.classList.add('hidden')
+  saveCoverButton.classList.add('hidden')
+  // savedCoverPageElements.classList.add('hidden')
+}
+
+function activateMakeMyBookButton() {
+  var formCover = document.querySelector('#cover')
+  var formTitle = document.querySelector('#title')
+  var formDescriptor1 = document.querySelector('#descriptor1')
+  var formDescriptor2 = document.querySelector('#descriptor2')
+  covers.unshift(formCover)
+  titles.unshift(formTitle)
+  descriptors.unshift(formDescriptor1)
+  descriptors.unshift(formDescriptor2)
+  // event.preventDefault()
 }
 
 function activateViewSavedButton() {
-  hideElements(homePageElements)
-  hideElements(makeUserFormElements)
-  showElements(savedCoverPageElements)
+  homeButton.classList.remove('hidden')
+  userForm.classList.add('hidden')
+  homeMainCover.classList.add('hidden')
+  randomButton.classList.add('hidden')
+  saveCoverButton.classList.add('hidden')
+  // savedCoverPageElements.classList.remove('hidden')
   // savedCoversSection.innerHTML = 
   //   `<img class="mini-cover" src="./assets/prairie.jpg">
   //   <h2 class="mini-cover cover-title">Windswept Hearts</h2>
@@ -81,17 +105,18 @@ function activateViewSavedButton() {
   //   <img class="overlay" src="./assets/overlay.png">`
 }
 
-function hideElements(elementsToHide) {
-  for (var i = 0; i < elementsToHide.length; i++) {
-    elementsToHide[i].classList.add('hidden')
-  }
-}
 
-function showElements(elementsToShow) {
-  for (var i = 0; i < elementsToShow.length; i++) {
-    elementsToShow[i].classList.remove('hidden')
-  }
-}
+// OLD HIDE/SHOW FUNCTIONS -----------------------------------------
+// function hideElements(elementsToHide) {
+//   for (var i = 0; i < elementsToHide.length; i++) {
+//     elementsToHide[i].classList.add('hidden')
+//   }
+// }
+// function showElements(elementsToShow) {
+//   for (var i = 0; i < elementsToShow.length; i++) {
+//     elementsToShow[i].classList.remove('hidden')
+//   }
+// }
 
 function getRandomIndex(array) {
   return Math.floor(Math.random() * array.length);
