@@ -26,16 +26,16 @@ var savedView = document.querySelector('.saved-view')
 var savedCoversSection = document.querySelector('.saved-covers-section')
 var savedCovers = [
   new Cover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
-];
+]
 
 
 window.addEventListener('load', generateNewCover)
-randomButton.addEventListener("click", generateNewCover)
-formViewButton.addEventListener("click", activateFormViewButton)
-makeMyBookButton.addEventListener("click", activateMakeMyBookButton)
-homeButton.addEventListener("click", activateHomeButton)
-viewSavedButton.addEventListener("click", activateViewSavedButton)
-saveCoverButton.addEventListener("click", activateSaveButton)
+randomButton.addEventListener('click', generateNewCover)
+formViewButton.addEventListener('click', activateFormViewButton)
+makeMyBookButton.addEventListener('click', activateMakeMyBookButton)
+homeButton.addEventListener('click', activateHomeButton)
+viewSavedButton.addEventListener('click', activateViewSavedButton)
+saveCoverButton.addEventListener('click', activateSaveButton)
 
 
 // Create your event handlers and other functions here------------- 👇
@@ -46,14 +46,14 @@ function generateNewCover() {
   homeTagline2.innerText = descriptors[getRandomIndex(descriptors)]
   homeCover = new Cover(homeImage.src, homeTitle.innerText, homeTagline1.innerText, homeTagline2.innerText)
 }
+
 function activateSaveButton() {
-  if (!savedCovers.includes(homeCover)){
+  if (!savedCovers.includes(homeCover)) {
     savedCovers.push(homeCover)
   }
-  if (!savedCovers.includes(userCover)){
+  if (!savedCovers.includes(userCover)) {
     savedCovers.push(userCover)
   }
-  
 }
 
 function activateHomeButton() {
@@ -98,7 +98,6 @@ function activateViewSavedButton() {
   homeMainCover.classList.add('hidden')
   randomButton.classList.add('hidden')
   saveCoverButton.classList.add('hidden')
-  // savedCoversSection.classList.add('mini-cover')
   savedCoversSection.innerHTML = ''
   for (var i = 0; i < savedCovers.length; i ++) {
     savedCoversSection.innerHTML += 
@@ -113,9 +112,5 @@ function activateViewSavedButton() {
 }
 
 function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
-}
-
-function test() {
-  console.log('Is this working?')
+  return Math.floor(Math.random() * array.length)
 }
