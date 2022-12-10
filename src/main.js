@@ -57,12 +57,15 @@ function activateSaveButton() {
 }
 
 function dblClickPoster(event) {
-  var poster = event.target.id
-  console.log(poster)
-  var posterHTML = document.querySelector(`#parent${poster}`)
-  console.log(posterHTML.querySelector('.cover-title'))
-  savedCovers.splice(poster, 1)
-  posterHTML.outerHTML = ''
+  var poster = event.target
+  var parentId = poster.parentElement.id
+  var parent = document.getElementById(`${parentId}`)
+  parent.outerHTML = ''
+  for (var i = 0; i < savedCovers.length; i++) {
+    if (savedCovers[i].id == parentId) {
+      savedCovers.splice(i, 1)
+    }
+  }
 }
 
 function activateHomeButton() {
@@ -110,15 +113,13 @@ function activateViewSavedButton() {
   savedCoversSection.innerHTML = ''
   for (var i = 0; i < savedCovers.length; i ++) {
     savedCoversSection.innerHTML += 
-    `<section class="mini-cover" id="parent${i}">
-    <img class="cover-image" id="${i}" src=${savedCovers[i].cover}>
-    <h2 class="cover-title" id="${i}">${savedCovers[i].title}</h2>
-    <h3 class="tagline" id="${i}">A tale of <span class="tagline-1" id="${i}">${savedCovers[i].tagline1}</span> and <span class="tagline-2" id="${i}">${savedCovers[i].tagline2}</span></h3>
-    <img class="price-tag" id="${i}" src="./assets/price.png">
-    <img class="overlay" id="${i}" src="./assets/overlay.png">
+    `<section class="mini-cover" id="${savedCovers[i].id}">
+    <img class="cover-image" src=${savedCovers[i].cover}>
+    <h2 class="cover-title">${savedCovers[i].title}</h2>
+    <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+    <img class="price-tag" src="./assets/price.png">
+    <img class="overlay" src="./assets/overlay.png">
     </section>`
-    // We need to move this eventListener assignment into a loop that can store the i value and is connected to the deletion function
-    // document.querySelector(`#DOMisstupid${i}`).addEventListener('dblclick', dblClickPoster)
   }
 }
 
