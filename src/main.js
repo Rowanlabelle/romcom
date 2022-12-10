@@ -6,7 +6,7 @@ var homeImage = document.querySelector('.cover-image')
 var homeTitle = document.querySelector('.cover-title')
 var homeTagline1 = document.querySelector('.tagline-1')
 var homeTagline2 = document.querySelector('.tagline-2')
-var homeCover = new Cover(homeImage.src, homeTitle.innerText, homeTagline1.innerText, homeTagline2.innerText) 
+var currentCover = new Cover(homeImage.src, homeTitle.innerText, homeTagline1.innerText, homeTagline2.innerText) 
 
 
 // user form buttons and vars
@@ -38,7 +38,7 @@ homeButton.addEventListener('click', activateHomeButton)
 viewSavedButton.addEventListener('click', activateViewSavedButton)
 saveCoverButton.addEventListener('click', activateSaveButton)
 
-
+savedCoversSection.addEventListener('dblclick', dblClickPoster)
 
 
 // Create your event handlers and other functions here------------- 👇
@@ -47,30 +47,22 @@ function generateNewCover() {
   homeTitle.innerText = titles[getRandomIndex(titles)]
   homeTagline1.innerText = descriptors[getRandomIndex(descriptors)]
   homeTagline2.innerText = descriptors[getRandomIndex(descriptors)]
-  homeCover = new Cover(homeImage.src, homeTitle.innerText, homeTagline1.innerText, homeTagline2.innerText)
+  currentCover = new Cover(homeImage.src, homeTitle.innerText, homeTagline1.innerText, homeTagline2.innerText)
 }
 
 function activateSaveButton() {
-  if (!savedCovers.includes(homeCover)) {
-    savedCovers.push(homeCover)
+  if (!savedCovers.includes(currentCover)) {
+    savedCovers.push(currentCover)
   }
-  // if (!savedCovers.includes(userCover)) {
-  //   savedCovers.push(userCover)
-  // }
 }
 
-function dblClickPoster() {
-  // This is not pulling the i value that's being assigned in the creator for loop. Maybe try moving event listener assignment into this function and tie this functions activation to the clicking of the view saved covers button.
-  console.log("test")
-  console.log(i)
-  // If the event listener assigner assigns listeners in the same order as the section IDs, we can pass the i value from this function to our delete function.
-  deletePoster(i) 
-}
-// We need to create a separate array or reference the saved covers array to access these values.
-function deletePoster(i) {
-  // This theorectically will work but we need a functioning i value.
-  console.log("inner function")
-  document.querySelector(`#DOMisstupid${i}`).outerHTML = ''
+function dblClickPoster(event) {
+  var poster = event.target.id
+  console.log(poster)
+  var posterHTML = document.querySelector(`#parent${poster}`)
+  console.log(posterHTML.querySelector('.cover-title'))
+  savedCovers.splice(poster, 1)
+  posterHTML.outerHTML = ''
 }
 
 function activateHomeButton() {
@@ -97,11 +89,11 @@ function activateMakeMyBookButton(event) {
   titles.unshift(formTitle.value)
   descriptors.unshift(formDescriptor2.value)
   descriptors.unshift(formDescriptor1.value)
-  userCover = new Cover(covers[0], titles[0], descriptors[0], descriptors[1])
-  homeImage.src = userCover.cover
-  homeTitle.innerText = userCover.title
-  homeTagline1.innerText = userCover.tagline1
-  homeTagline2.innerText = userCover.tagline2
+  currentCover = new Cover(covers[0], titles[0], descriptors[0], descriptors[1])
+  homeImage.src = currentCover.cover
+  homeTitle.innerText = currentCover.title
+  homeTagline1.innerText = currentCover.tagline1
+  homeTagline2.innerText = currentCover.tagline2
   userForm.classList.add('hidden')
   saveCoverButton.classList.remove('hidden')
   homeMainCover.classList.remove('hidden')
@@ -118,15 +110,15 @@ function activateViewSavedButton() {
   savedCoversSection.innerHTML = ''
   for (var i = 0; i < savedCovers.length; i ++) {
     savedCoversSection.innerHTML += 
-    `<section class="mini-cover" id="DOMisstupid${i}">
-    <img class="cover-image" src=${savedCovers[i].cover}>
-    <h2 class="cover-title">${savedCovers[i].title}</h2>
-    <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
-    <img class="price-tag" src="./assets/price.png">
-    <img class="overlay" src="./assets/overlay.png">
+    `<section class="mini-cover" id="parent${i}">
+    <img class="cover-image" id="${i}" src=${savedCovers[i].cover}>
+    <h2 class="cover-title" id="${i}">${savedCovers[i].title}</h2>
+    <h3 class="tagline" id="${i}">A tale of <span class="tagline-1" id="${i}">${savedCovers[i].tagline1}</span> and <span class="tagline-2" id="${i}">${savedCovers[i].tagline2}</span></h3>
+    <img class="price-tag" id="${i}" src="./assets/price.png">
+    <img class="overlay" id="${i}" src="./assets/overlay.png">
     </section>`
     // We need to move this eventListener assignment into a loop that can store the i value and is connected to the deletion function
-    document.querySelector(`#DOMisstupid${i}`).addEventListener('dblclick', dblClickPoster)
+    // document.querySelector(`#DOMisstupid${i}`).addEventListener('dblclick', dblClickPoster)
   }
 }
 
