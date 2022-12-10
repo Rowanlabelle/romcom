@@ -35,6 +35,7 @@ formViewButton.addEventListener("click", activateFormViewButton)
 makeMyBookButton.addEventListener("click", activateMakeMyBookButton)
 homeButton.addEventListener("click", activateHomeButton)
 viewSavedButton.addEventListener("click", activateViewSavedButton)
+saveCoverButton.addEventListener("click", activateSaveButton)
 
 
 // Create your event handlers and other functions here------------- 👇
@@ -45,6 +46,15 @@ function generateNewCover() {
   homeTagline2.innerText = descriptors[getRandomIndex(descriptors)]
   homeCover = new Cover(homeImage.src, homeTitle.innerText, homeTagline1.innerText, homeTagline2.innerText)
 }
+function activateSaveButton() {
+  if (!savedCovers.includes(homeCover)){
+    savedCovers.push(homeCover)
+  }
+  if (!savedCovers.includes(userCover)){
+    savedCovers.push(userCover)
+  }
+  
+}
 
 function activateHomeButton() {
   homeMainCover.classList.remove('hidden')
@@ -52,7 +62,7 @@ function activateHomeButton() {
   randomButton.classList.remove('hidden')
   userForm.classList.add('hidden')
   homeButton.classList.add('hidden')
-  // savedCoverPageElements.classList.add('hidden')
+  savedView.classList.add('hidden')
 }
 
 function activateFormViewButton() {
@@ -61,11 +71,11 @@ function activateFormViewButton() {
   homeMainCover.classList.add('hidden')
   randomButton.classList.add('hidden')
   saveCoverButton.classList.add('hidden')
-  // savedCoverPageElements.classList.add('hidden')
+  savedView.classList.add('hidden')
 }
 
-function activateMakeMyBookButton(form) {
-  form.preventDefault()
+function activateMakeMyBookButton(event) {
+  event.preventDefault()
   covers.unshift(formCover.value)
   titles.unshift(formTitle.value)
   descriptors.unshift(formDescriptor2.value)
@@ -78,21 +88,28 @@ function activateMakeMyBookButton(form) {
   userForm.classList.add('hidden')
   saveCoverButton.classList.remove('hidden')
   homeMainCover.classList.remove('hidden')
+  savedView.classList.add('hidden')
 }
 
 function activateViewSavedButton() {
   homeButton.classList.remove('hidden')
+  savedView.classList.remove('hidden')
   userForm.classList.add('hidden')
   homeMainCover.classList.add('hidden')
   randomButton.classList.add('hidden')
   saveCoverButton.classList.add('hidden')
-  // savedCoverPageElements.classList.remove('hidden')
-  // savedCoversSection.innerHTML = 
-  //   `<img class="mini-cover" src="./assets/prairie.jpg">
-  //   <h2 class="mini-cover cover-title">Windswept Hearts</h2>
-  //   <h3 class="tagline">A tale of <span class="tagline-1">passion</span> and <span class="tagline-2">woe</span></h3>
-  //   <img class="price-tag" src="./assets/price.png">
-  //   <img class="overlay" src="./assets/overlay.png">`
+  // savedCoversSection.classList.add('mini-cover')
+  savedCoversSection.innerHTML = ''
+  for (var i = 0; i < savedCovers.length; i ++) {
+    savedCoversSection.innerHTML += 
+    `<section class="mini-cover">
+    <img class="cover-image" src=${savedCovers[i].cover}>
+    <h2 class="cover-title">${savedCovers[i].title}</h2>
+    <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+    <img class="price-tag" src="./assets/price.png">
+    <img class="overlay" src="./assets/overlay.png">
+    </section>`
+  }
 }
 
 function getRandomIndex(array) {
