@@ -46,8 +46,12 @@ function generateNewCover() {
 }
 
 function activateHomeButton() {
-  show[homeMainCover, saveCoverButton, randomButton]
-  hide[userForm, homeButton, savedView]
+  show(homeMainCover) 
+  show(saveCoverButton)
+  show(randomButton)
+  hide(userForm)
+  hide(homeButton) 
+  hide(savedView)
 }
 
 function activateSaveButton() {
@@ -57,14 +61,20 @@ function activateSaveButton() {
 }
 
 function activateFormViewButton() {
-  show[homeButton, userForm]
-  hide[homeMainCover, randomButton, saveCoverButton, savedView]
+  show(homeButton)
+  show(userForm)
+  hide(homeMainCover)
+  hide(randomButton) 
+  hide(saveCoverButton) 
+  hide(savedView)
 }
 
 function activateMakeMyBookButton(event) {
   event.preventDefault()
-  show[saveCoverButton, homeMainCover]
-  hide[userForm, savedView]
+  show(saveCoverButton)  
+  show(homeMainCover)
+  hide(userForm) 
+  hide(savedView)
   covers.unshift(formCover.value)
   titles.unshift(formTitle.value)
   descriptors.unshift(formDescriptor2.value)
@@ -77,19 +87,23 @@ function activateMakeMyBookButton(event) {
 }
 
 function activateViewSavedButton() {
-  show[homeButton, savedView]
-  hide[userForm, homeMainCover, randomButton, saveCoverButton]
-  // savedCoversSection.innerHTML = ''
-    for (var i = 0; i < savedCovers.length; i ++) {
-      savedCoversSection.innerHTML += 
+  show(homeButton)
+  show(savedView)
+  hide(userForm) 
+  hide(homeMainCover)
+  hide(randomButton)
+  hide(saveCoverButton)
+  savedCoversSection.innerHTML = ''
+  for (var i = 0; i < savedCovers.length; i ++) {
+    savedCoversSection.innerHTML += 
       `<section class="mini-cover" id="${savedCovers[i].id}">
-          <img class="cover-image" src=${savedCovers[i].cover}>
-          <h2 class="cover-title">${savedCovers[i].title}</h2>
-          <h3 class="tagline">A tale of ${savedCovers[i].tagline1} and ${savedCovers[i].tagline2}</h3>
-          <img class="price-tag" src="./assets/price.png">
-          <img class="overlay" src="./assets/overlay.png">
+        <img class="cover-image" src=${savedCovers[i].cover}>
+        <h2 class="cover-title">${savedCovers[i].title}</h2>
+        <h3 class="tagline">A tale of ${savedCovers[i].tagline1} and ${savedCovers[i].tagline2}</h3>
+        <img class="price-tag" src="./assets/price.png">
+        <img class="overlay" src="./assets/overlay.png">
       </section>`
-    }
+  }
 }
 
 function dblClickPoster(event) {
@@ -103,16 +117,12 @@ function dblClickPoster(event) {
   }
 }
 
-function show(elements) {
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.remove('hidden')
-  }
+function show(element) {
+  element.classList.remove('hidden')
 }
 
-function hide(elements) {
-  for (var i = 0; i < elements.length; i++) {
-    elements[i].classList.add('hidden')
-  }
+function hide(element) {
+  element.classList.add('hidden')
 }
 
 function getRandomIndex(array) {
