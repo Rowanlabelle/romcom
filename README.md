@@ -15,7 +15,7 @@ We updated the framework of a website with javascript so that the included butto
 
 ### Preview of App:
 [//]: <>
-https://files.slack.com/files-pri/T029P2S9M-F04F1CB6PMF/screenshot_2022-12-10_at_5.34.37_pm.png
+![screenshot_2022-12-10_at_5 34 37_pm](https://user-images.githubusercontent.com/117314181/213292139-a31a61b1-574e-48fa-896e-dbaa258ccc56.png)
 
 ### Context:
 [//]: <>
